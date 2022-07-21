@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/F-PTS/Terminal-Note-App#readme",
   "dependencies": {
-    "nodemon": "^2.0.19"
+    "chalk": "^4.1.2",
+    "nodemon": "^2.0.19",
+    "validator": "^13.7.0"
   }
 }
