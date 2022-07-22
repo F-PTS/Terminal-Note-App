@@ -10,17 +10,36 @@ const getNotes = require('./notes.js');
 yargs.command({
     command: 'add',
     describe: 'Add a new note',
-    handler() {
-        console.log('Adding new note!');
+    builder: {
+        title: {
+            describe: 'a note title',
+            demandOption: true,
+            type: 'string'
+        },
+        body: {
+            descibe: 'a note body',
+            demandOption: true,
+            type: 'string'
+        }
+    },
+    handler(argv) {
+        console.log(`Adding new note titled "${argv.title}"!`);
     }
 });
 
-// Read: read
+// Read: read, list
 yargs.command({
     command: 'read',
     describe: 'read selected note',
-    handler() {
-        console.log('the note:   {{ note here lol }}');
+    builder: {
+        titleNoteToRead: {
+            descibe: 'provide a title of note to be read',
+            demandOption: true,
+            type: 'string'
+        }
+    },
+    handler(argv) {
+        console.log('the note: {note}');
     }
 });
 
@@ -55,4 +74,4 @@ yargs.command({
 // if(command === 'add') console.log('Adding note!');
 // if(command === 'remove') console.log('Removing note!');
 
-console.log(yargs.argv)
+yargs.parse();
