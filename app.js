@@ -55,8 +55,25 @@ yargs.command({
 yargs.command({
     command: 'edit',
     describe: 'edit selected note',
-    handler() {
-        console.log('well I gotta think how to do it the right way');
+    builder: {
+        currentTitle: {
+            describe: 'the current title of the note you want to change',
+            demandOption: true,
+            type: 'string'
+        },
+        newTitle: {
+            describe: 'the new title of the note',
+            demandOption: true,
+            type: 'string'
+        },
+        newBody: {
+            describe: 'the new body of the note',
+            demandOption: true,
+            type: 'string'
+        },
+    },
+    handler(argv) {
+        Notes.editNote(argv.currentTitle, argv.newTitle, argv.newBody)
     }
 });
 

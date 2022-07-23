@@ -36,14 +36,38 @@ const saveNotes = notes => {
 }
 
 const removeNote = noteTitle => {
-    const notes = loadNotes().filter(noteToCheck => {
-        return noteToCheck.title != noteTitle;
-    });
 
-    saveNotes(notes);
-
-    console.log(`note titled ${noteTitle} has been removed`);
-
+    try {
+        const notes = loadNotes().filter(noteToCheck => {
+            return noteToCheck.title != noteTitle;
+        });
+    
+        saveNotes(notes);
+    
+        console.log(`note titled ${noteTitle} has been removed`);
+    } catch (err) {
+        console.log(`error! ${err}`);
+    }
 }
 
-module.exports = { getNotes, addNote, removeNote };
+const editNote = (currentTitle, newTitle, newBody) => {
+    try {
+        const notes = loadNotes().filter(noteToCheck => {
+            if (noteToCheck.title == currentTitle) {
+                
+                noteToCheck.title = newTitle;
+                noteToCheck.body = newBody;
+    
+                console.log(`the body and / or Title of note previously titled ${currentTitle} has been changed`);
+            };
+    
+            return true;
+        });
+    
+        saveNotes(notes);
+    } catch (err) {
+        console.log(`error! ${err}`);
+    }
+}
+
+module.exports = { getNotes, addNote, removeNote, editNote };
