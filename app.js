@@ -2,7 +2,7 @@ const validator = require('validator');
 const chalk = require('chalk');
 const yargs = require('yargs');
 
-const getNotes = require('./notes.js');
+const Notes = require('./notes.js');
 
 // get the terminal commands with yargs...
 
@@ -23,7 +23,7 @@ yargs.command({
         }
     },
     handler(argv) {
-        console.log(`Adding new note titled "${argv.title}"!`);
+        Notes.addNote(argv.title, argv.body);
     }
 });
 
