@@ -5,9 +5,19 @@ const getNotes = () => 'Success!';
 const addNote = (title, body) => {
     const notes = loadNotes();
 
-    notes.push({ title, body })
+    const duplicateNotes = notes.filter((newNote) => {
+        return notes.title == newNote.title
+    })
 
-    saveNotes(notes)
+    if(duplicateNotes) {
+        notes.push({ title, body })
+
+        saveNotes(notes)
+
+        console.log('new note added');
+    } else {
+        console.log('note title already exists');
+    }
 };
 
 const loadNotes = () => {
@@ -25,4 +35,15 @@ const saveNotes = notes => {
     fs.writeFileSync('db.json', dataJSON);
 }
 
-module.exports = { getNotes, addNote };
+const removeNote = noteTitle => {
+    const notes = loadNotes().filter(noteToCheck => {
+        return noteToCheck.title != noteTitle;
+    });
+
+    saveNotes(notes);
+
+    console.log(`note titled ${noteTitle} has been removed`);
+
+}
+
+module.exports = { getNotes, addNote, removeNote };
