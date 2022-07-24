@@ -36,7 +36,6 @@ const saveNotes = notes => {
 }
 
 const removeNote = noteTitle => {
-
     try {
         const notes = loadNotes().filter(noteToCheck => {
             return noteToCheck.title != noteTitle;
@@ -50,11 +49,24 @@ const removeNote = noteTitle => {
     }
 }
 
+const readNote = noteTitle => {
+    try {
+        loadNotes().map(noteToCheck => {
+            if (noteToCheck.title == noteTitle) {
+    
+                console.log(`"${noteTitle}"\n\n${noteToCheck.body}\n\n`);
+            };
+        });
+    } catch (err) {
+        console.log(`error! ${err}`);
+    }
+}
+
 const editNote = (currentTitle, newTitle, newBody) => {
     try {
         const notes = loadNotes().filter(noteToCheck => {
             if (noteToCheck.title == currentTitle) {
-                
+
                 noteToCheck.title = newTitle;
                 noteToCheck.body = newBody;
     
@@ -70,4 +82,9 @@ const editNote = (currentTitle, newTitle, newBody) => {
     }
 }
 
-module.exports = { getNotes, addNote, removeNote, editNote };
+const listNotes = () => {
+    console.log('your notes: ');
+    console.log(loadNotes());
+}
+
+module.exports = { getNotes, addNote, removeNote, editNote, listNotes, readNote };
