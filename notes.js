@@ -1,4 +1,5 @@
 const fs = require('fs');
+const chalk = require('chalk');
 
 const getNotes = () => 'Success!';
 
@@ -14,9 +15,9 @@ const addNote = (title, body) => {
 
         saveNotes(notes)
 
-        console.log('new note added');
+        console.log(chalk.green('new note added'));
     } else {
-        console.log('note title already exists');
+        console.log(chalk.yellow('note title already exists'));
     }
 };
 
@@ -26,7 +27,7 @@ const loadNotes = () => {
         const dataJSON = dataBuffer.toString();
         return JSON.parse(dataJSON);   
     } catch (err) {
-        return [];
+        console.log(chalk.red(`error! ${err}`));
     }
 };
 
@@ -43,9 +44,9 @@ const removeNote = noteTitle => {
     
         saveNotes(notes);
     
-        console.log(`note titled ${noteTitle} has been removed`);
+        console.log(chalk.green(`note titled ${noteTitle} has been removed`));
     } catch (err) {
-        console.log(`error! ${err}`);
+        console.log(chalk.red(`error! ${err}`));
     }
 }
 
@@ -54,11 +55,11 @@ const readNote = noteTitle => {
         loadNotes().map(noteToCheck => {
             if (noteToCheck.title == noteTitle) {
     
-                console.log(`"${noteTitle}"\n\n${noteToCheck.body}\n\n`);
+                console.log(chalk.blue(`"${noteTitle}"\n\n${noteToCheck.body}\n\n`));
             };
         });
     } catch (err) {
-        console.log(`error! ${err}`);
+        console.log(chalk.red(`error! ${err}`));
     }
 }
 
@@ -70,7 +71,7 @@ const editNote = (currentTitle, newTitle, newBody) => {
                 noteToCheck.title = newTitle;
                 noteToCheck.body = newBody;
     
-                console.log(`the body and / or Title of note previously titled ${currentTitle} has been changed`);
+                console.log(chalk.green(`the body and / or Title of note previously titled ${currentTitle} has been changed`));
             };
     
             return true;
@@ -78,12 +79,12 @@ const editNote = (currentTitle, newTitle, newBody) => {
     
         saveNotes(notes);
     } catch (err) {
-        console.log(`error! ${err}`);
+        console.log(chalk.red(`error! ${err}`));
     }
 }
 
 const listNotes = () => {
-    console.log('your notes: ');
+    console.log(chalk.green('your notes: '));
     console.log(loadNotes());
 }
 
